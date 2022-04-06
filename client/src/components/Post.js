@@ -26,7 +26,7 @@ const Posts = (props) => {
 
   return (
     <div>
-      <h1>Travel Blog</h1>
+      <h1 className='title'>Travel Blog</h1>
       {props.postsState.posts && props.postsState.posts.map((post) => (
         <ul key={post._id}>
           <h3>{post.locationName}</h3>
