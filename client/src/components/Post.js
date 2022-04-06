@@ -47,6 +47,7 @@ const Posts = (props) => {
             <ul key={commentItem._id}>
               <h3>{commentItem.username}</h3>
               <p>{commentItem.text}</p>
+              <p>{commentItem.review}</p>
             </ul>
           ))}
         </ul>
