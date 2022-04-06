@@ -1,6 +1,8 @@
 import {LoadPosts} from '../store/actions/TravelActions'
 import { connect } from 'react-redux'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Redirect } from 'react'
+
 
 
 const mapStateToProps = ({ postsState }) => {
@@ -12,6 +14,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchPosts: () => dispatch(LoadPosts())
   }
 }
+
+
 
 const Posts = (props) => {
 
@@ -28,20 +32,24 @@ const Posts = (props) => {
           <h3>{post.locationName}</h3>
           <br/>
           <img src={post.image} alt={post.location} style={{width: "300px"}}/>
-          <form action={`http://localhost:3001/api/${post._id}`} method="POST">
+          <form id="new-comment" target="ifrm1" action={`http://localhost:3001/api/${post._id}`} method="POST">
             <input type="text" name="username" placeholder="Username"/>
             <input type="text" name="text" placeholder="Comment Here"/>
             <input type="number" name="review" placeholder="1-5" min="1" max="5"/>
-            <button type="submit">Submit</button>
+            <button type="submit" 
+              onClick={()=> {
+                alert('Comment Added!')
+                window.location.reload()
+              }} >Submit</button>
           </form>
-          {post.comment.map((comm) => (
-            <ul key={comm._id}>
-            <h2>{comm.username}</h2>
-            <p>{comm.review}</p>
-            <p>{comm.text}</p>
+          <iframe id="ifrm1" name="ifrm1" style={{display:"none"}}></iframe>
+          {post.comment.map((commentItem) => (
+            <ul key={commentItem._id}>
+              <h3>{commentItem.username}</h3>
+              <p>{commentItem.text}</p>
             </ul>
           ))}
-          </ul>
+        </ul>
       ))}
     </div>
   )
